@@ -41,8 +41,10 @@ PC3> ping 10.2.1.51
 Common network attacks
 
 
-DHCP
+# DHCP
+
 DHCP spoofing
+
 ┌──(kali㉿kali)-[~]
 └─$ cat /etc/dnsmasq.conf 
 server=1.1.1.1
@@ -54,7 +56,7 @@ dhcp-range=10.2.1.220,10.2.1.230,12h
 dhcp-option=option:netmask,255.255.255.0
 dhcp-option=option:router,10.2.1.254
 dhcp-option=option:dns-server,10.2.1.12
-# addn-hosts=/etc/dnsmasq.d/spoof.hosts
+addn-hosts=/etc/dnsmasq.d/spoof.hosts
 
 ┌──(kali㉿kali)-[~]
 └─$ 
@@ -147,7 +149,7 @@ Switch(config)# exit
 Switch# show port-security
 
 
-ICMP
+# ICMP
 
 Interception ping
 
