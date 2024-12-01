@@ -196,9 +196,9 @@ PC1> sh arp
 
 Remédiation : 
 
-Switch(config)# ip arp inspection vlan 1
+Switch(config)# ip arp inspection vlan ..
 Switch(config)# ip dhcp snooping
-Switch(config)# ip dhcp snooping vlan 1
+Switch(config)# ip dhcp snooping vlan ..
 Switch(config)# exit
 Switch# show ip arp inspection
 
