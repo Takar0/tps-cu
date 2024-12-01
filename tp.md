@@ -1,8 +1,48 @@
+Setup
 
+PC3> dhcp
+DDORA IP 10.2.1.184/24 GW 10.2.1.254
+
+
+
+PC3> ping 8.8.8.8
+
+84 bytes from 8.8.8.8 icmp_seq=1 ttl=114 time=37.636 ms
+84 bytes from 8.8.8.8 icmp_seq=2 ttl=114 time=38.209 ms
+84 bytes from 8.8.8.8 icmp_seq=3 ttl=114 time=39.489 ms
+
+
+
+R1#show ip int br
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            192.168.122.3   YES DHCP   up                    up  
+FastEthernet1/0            10.2.1.254      YES NVRAM  up                    up  
+FastEthernet1/1            unassigned      YES NVRAM  administratively down down
+FastEthernet2/0            unassigned      YES NVRAM  administratively down down
+FastEthernet2/1            unassigned      YES NVRAM  administratively down down
+NVI0                       unassigned      NO  unset  up
+
+
+
+PC3> ping 8.8.8.8
+
+8.8.8.8 icmp_seq=1 timeout
+84 bytes from 8.8.8.8 icmp_seq=2 ttl=114 time=36.501 ms
+84 bytes from 8.8.8.8 icmp_seq=3 ttl=114 time=53.740 ms
+
+
+
+PC3> ping 10.2.1.51
+
+84 bytes from 10.2.1.51 icmp_seq=1 ttl=64 time=8.285 ms
+84 bytes from 10.2.1.51 icmp_seq=2 ttl=64 time=3.606 ms
+
+
+Common network attacks
 
 
 DHCP
-A. DHCP spoofing
+DHCP spoofing
 ┌──(kali㉿kali)-[~]
 └─$ cat /etc/dnsmasq.conf 
 server=1.1.1.1
@@ -82,3 +122,26 @@ MAC         : 00:50:79:66:68:05
 LPORT       : 20044
 RHOST:PORT  : 127.0.0.1:20045
 MTU         : 1500
+
+
+ICMP
+
+Interception ping
+
+┌──(root㉿kali)-[/home/kali/Desktop/Script]
+└─# python icmp_basic_receiver.py
+Sniffing des paquets ICMP provenant de 127.0.0.1...
+Ping reçu de 127.0.0.1 avec les données : test interception
+Ping reçu de 127.0.0.1 avec les données : test interception
+Ping reçu de 127.0.0.1 avec les données : test interception
+Ping reçu de 127.0.0.1 avec les données : test interception
+
+
+
+Exfiltration fichier
+
+┌──(root㉿kali)-[/home/kali/Desktop/Script]
+└─# python icmp_file_exfiltr.py
+Envoi du bloc 1 vers 127.0.0.1 : b'toto\n'
+Exfiltration terminée
+#### Interception ping
