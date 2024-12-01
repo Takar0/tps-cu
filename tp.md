@@ -171,7 +171,6 @@ Envoi du bloc 1 vers 127.0.0.1 : b'toto\n'
 Exfiltration terminée
 #### Interception ping
 
-Remédiation :
 
 
 # ARP 
