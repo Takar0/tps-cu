@@ -1,4 +1,4 @@
-Setup
+# Setup
 
 PC3> dhcp
 DDORA IP 10.2.1.184/24 GW 10.2.1.254
